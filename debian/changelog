@@ -1,0 +1,6 @@
+vassal (3.7.16-571-gb2a38-1) UNRELEASED; urgency=medium
+
+  * Initial release
+  * Switch to build from master
+
+ -- Christian Holm Christensen <cholmcc@gmail.com>  Fri, 06 Jun 2025 12:10:12 +0200
