@@ -50,7 +50,7 @@ jobs:
         run: |
           mkdir -p public
           mv \
-../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb \
             ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build \
             ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo \
             ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes	\
