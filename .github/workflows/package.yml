@@ -45,17 +45,30 @@ jobs:
 
       - name: Build DEB package
         run: debuild -us -uc -rfakeroot
-        
+
+      - name: Move DEB package
+        run: |
+          mkdir -p public
+          mv \
+../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build \
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo \
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes	\
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.debian.tar.gz \
+            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.dsc \
+            ../vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz \
+            public/
+            
       - name: Archive DEB package
         uses: actions/upload-artifact@v4
         with:
           name: debian_package
           path: |
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.debian.tar.gz
-            ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.dsc
-            ../vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.debian.tar.gz
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.dsc
+            public/vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz
 
