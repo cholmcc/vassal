@@ -3,7 +3,7 @@ name: DebBuild
 on:
   push:
     branches: [ cholmcc_debian ]
-    tag: '*'
+    tags: '*'
 
 jobs:
   package:
