@@ -49,7 +49,7 @@ jobs:
       - name: Move DEB package
         run: |
           mkdir -p public
-          ls
+          ls ..
           mv \
             ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb \
             ../vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build \
@@ -63,11 +63,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: debian_package
-          path: |
-            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
-            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build
-            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo
-            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes
-            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.dsc
-            public/vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz
+          path: public/*
+
+      - name: Publish DEB package
+        uses: softprops/action-gh-release@v2
+        with:
+          files: public/*
+          
 
