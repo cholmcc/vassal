@@ -22,30 +22,23 @@
         { "num": 12944, "desc": "Add pieceCount to the map auto reporter" },
         { "num": 12763, "desc": "Added ModuleGameFileName property" }
       ],
+      "bug_fixes": [
+      ],
       "improvements": [
       ],
       "other": [
       ]
     },
     {
-      "in": "3.7.17",
-      "since": "3.7.16",
+      "in": "3.7.18",
+      "since": "3.7.17",
       "new_features": [
       ],
       "bug_fixes": [
-        { "num": 14031, "desc": "Prevent NPEs when checking for amount of physical memory" }
       ],
       "improvements": [
-        { "num": 14096, "desc": "Fixed typos in regex examples" }
       ],
       "other": [
-        { "num": 14055, "desc": "Upgraded bundled Mac, x86_64 Windows Java to 24.0.1+9; aarch64 Windows Java to 24.0.1+11" },
-        { "num": 14027, "desc": "Upgraded bundled x86 Windows Java to 21.0.7+9" },
-        { "num": 14026, "desc": "Upgraded jsoup to 1.20.1" },
-        { "num": 14023, "desc": "Upgraded checkstyle to 10.23.1" },
-        { "num": 14017, "desc": "Upgraded httpclient5 to 5.4.4" },
-        { "num": 13995, "desc": "Upgraded commons-io to 2.19.0" },
-        { "num": 13989, "desc": "Upgraded junit-bom to 5.12.2" }
       ]
     }
   ]
