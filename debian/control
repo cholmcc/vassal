@@ -7,7 +7,8 @@ Build-Depends:
 	debhelper-compat (= 13),
         default-jdk,
         asciidoctor,
-        ruby-asciidoctor-pdf
+        ruby-asciidoctor-pdf,
+        asciidoctor-pdf
 Build-Depends-Indep:
         libasm-java (>= 9.2),
 	libbatik-java (>= 1.14),

@@ -711,3 +711,4 @@ out/org/netbeans/spi/wizard/WizardPanel.class
 out/org/netbeans/spi/wizard/WizardPanelNavResult$WPNRimmediate.class
 out/org/netbeans/spi/wizard/WizardPanelNavResult.class
 out/org/netbeans/spi/wizard/WizardPanelProvider.class
+vassal-app/src/main/java/org/netbeans/modules/wizard/defaultWizard.png
