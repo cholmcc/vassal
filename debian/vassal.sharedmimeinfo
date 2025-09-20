@@ -21,6 +21,7 @@
    <mime-type type="application/x-vassal-extension">
      <comment>VASSAL module extension</comment>
      <glob pattern="*.vmdx"/>
+     <glob pattern="*.vext"/>
      <generic-icon name="application-x-vassal"/>
      <sub-class-of type="application/zip"/>
    </mime-type>
