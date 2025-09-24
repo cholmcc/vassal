@@ -173,6 +173,12 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Update container
+        run: sudo apt update
+
+      - name: Install DEB development scripts
+        run: sudo apt install -y devscripts 
+
       - name: Make DEB changelog release
         id: deb_ch_tag
         if: github.ref_type == 'tag'
@@ -186,6 +192,7 @@ jobs:
         run: |
           eml="${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           ver=$(make version-print 2>/dev/null | tr '_' '-')
+          echo "Setting non-release Debian version to ${ver}-1"
           EMAIL="${eml}" dch --release-heuristic log -v ${ver}-1 "Snapshot build"
           
 
@@ -198,9 +205,6 @@ jobs:
           echo "DEB_VERSION=$version" >> $GITHUB_OUTPUT
           echo "DEB_UPSTREAM=$upstream" >> $GITHUB_OUTPUT
           echo "DEB_ARCH=$arch" >> $GITHUB_OUTPUT
-
-      - name: Update container
-        run: sudo apt update
 
       - name: Install DEB build-dependencies
         run: |
