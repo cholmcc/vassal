@@ -184,17 +184,18 @@ jobs:
         run: |
           ver=$(make version-print 2>/dev/null | tr '_' '-')
           echo "UPSTREAM_VERSION=$ver" >> $GITHUB_OUTPUT
+          echo "Claimed upstream version: $var"
           
       - name: Make DEB changelog release
         id: deb_ch_tag
-        if: ${{ ! contains(steps.deb_up_vers.outputs.STREAM_VERSION,'snapshot') }}
+        if: ${{ ! contains(steps.deb_up_vers.outputs.UPSTREAM_VERSION,'snapshot') }}
         run: |
           eml="${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           EMAIL="${eml}" dch --release-heuristic log -v "${{ github.ref_name }}-1" "New upstream release"
 
       - name: Make DEB changelog not release
         id: deb_ch_other
-        if: ${{ contains(steps.deb_up_vers.outputs.STREAM_VERSION,'snapshot') }}
+        if: ${{ contains(steps.deb_up_vers.outputs.UPSTREAM_VERSION,'snapshot') }}
         run: |
           eml="${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           ver=$(make version-print 2>/dev/null | tr '_' '-')
@@ -202,7 +203,7 @@ jobs:
           EMAIL="${eml}" dch --release-heuristic log -v ${ver}-1 "Snapshot build"
 
       - name: DEB Create Pull Request of changelog
-        if: ${{ ! contains(steps.deb_up_vers.outputs.STREAM_VERSION,'snapshot') }}
+        if: ${{ ! contains(steps.deb_up_vers.outputs.UPSTREAM_VERSION,'snapshot') }}
         uses: peter-evans/create-pull-request@v7
         with:
           body: |
