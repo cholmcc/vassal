@@ -1,3 +1,9 @@
+vassal (3.7.19-882812b-cholmcc-debian-1) jammy; urgency=medium
+
+  * New upstream release
+
+ --  <7202672+cholmcc@users.noreply.github.com>  Thu, 25 Sep 2025 21:42:30 +0000
+
 vassal (3.7.18-1) UNRELEASED; urgency=medium
 
   * New upstream release
