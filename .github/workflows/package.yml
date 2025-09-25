@@ -183,7 +183,7 @@ jobs:
         id: deb_up_vers
         run: |
           ver=$(make version-print 2>/dev/null | tr '_' '-')
-          echo "UPSTREAM_VERSION=$ver >> $GITHUB_OUTPUT
+          echo "UPSTREAM_VERSION=$ver" >> $GITHUB_OUTPUT
           
       - name: Make DEB changelog release
         id: deb_ch_tag
