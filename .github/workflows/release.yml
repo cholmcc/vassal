@@ -248,7 +248,7 @@ jobs:
 
       - name: Get digests
         run: |
-          curl ${{ github.api_url }}/${{ github.repository }}/releases/tags/${{ github.ref_name }} 2>/dev/null | jq '.assets.[] | .digest+"  "+.name | ltrimstr("sha256:") ' | tr -d '"' > VASSAL-${{ github.ref_name }}.sha256
+          curl ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} 2>/dev/null | jq '.assets.[] | .digest+"  "+.name | ltrimstr("sha256:") ' | tr -d '"' > VASSAL-${{ github.ref_name }}.sha256
 
       - name: Add artefacts to release
         uses: softprops/action-gh-release@v2
