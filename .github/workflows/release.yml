@@ -216,11 +216,45 @@ jobs:
             ../vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz \
             public/
 
+      - name: Archive Debian source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-source
+          path: |
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.build 
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.buildinfo 
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_${{ steps.deb_vars.outputs.DEB_ARCH }}.changes	
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.dsc 
+            public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}.debian.tar.xz 
+            public/vassal_${{ steps.deb_vars.outputs.DEB_UPSTREAM }}.orig.tar.gz 
+            
       - name: Add artefacts to release
         uses: softprops/action-gh-release@v2
         with:
-          files: public/*
+          files: public/*.deb
 
+  package_digest:
+    name: Sha256 digest of packages
+    runs-on: ubuntu-latest
+    needs:
+      - package
+      - package_win32
+      - package_debian
+    steps:
+      - name: Update container 
+        run: |
+          sudo apt update -y
+          sudo apt install -y jq
+
+      - name: Get digests
+        run: |
+          curl ${{ gitbug.api_url }}/${{ github.repository }}/releases/tags/${{ github.ref_name }} 2>/dev/null | jq '.assets.[] | .digest+"  "+.name | ltrimstr("sha256:") ' | tr -d '"' > VASSAL-${{ github.ref_name }}.sha256
+
+      - name: Add artefacts to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: VASSAL-${{ github.ref_name }}.sha256
+    
 #
 # EOF
 #
