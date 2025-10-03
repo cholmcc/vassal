@@ -231,7 +231,7 @@ jobs:
       - name: Add artefacts to release
         uses: softprops/action-gh-release@v2
         with:
-          files: public/*.deb
+          files: public/vassal_${{ steps.deb_vars.outputs.DEB_VERSION }}_all.deb
 
   package_digest:
     name: Sha256 digest of packages
