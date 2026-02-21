@@ -42,11 +42,11 @@ cp -a *  %{buildroot}%{_datadir}/%{name}/
 (cd %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes && cp ../../../../%{name}/VASSAL.svg %{app_name}.svg)
 (cd %{buildroot}%{_datadir}/icons/hicolor/scalable/apps && cp ../../../../%{name}/VASSAL.svg %{app_name}.svg)
 
-(cd %{buildroot} %{buildroot}%{_mandir}/man6 && ln -s ../../%{name}/%{name}.6 .)
-(cd %{buildroot}%{_datadir}/applications && ln -s ../%{name}/%{app_name}.desktop)
+(cd %{buildroot} %{buildroot}%{_mandir}/man6 && cp ../../%{name}/%{name}.6 .)
+(cd %{buildroot}%{_datadir}/applications && cp ../%{name}/%{app_name}.desktop)
 
-(cd %{buildroot}%{_datadir}/mime/packages/ && ln -s ../../%{name}/%{app_name}.mime.xml %{app_name}.xml)
-(cd %{buildroot}%{_datadir}/metainfo/ && ln -s ../%{name}/%{app_name}.metainfo.xml .)
+(cd %{buildroot}%{_datadir}/mime/packages/ && cp ../../%{name}/%{app_name}.mime.xml %{app_name}.xml)
+(cd %{buildroot}%{_datadir}/metainfo/ && cp ../%{name}/%{app_name}.metainfo.xml .)
 
 %files
 %{_bindir}/*
