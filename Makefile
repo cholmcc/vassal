@@ -200,12 +200,12 @@ $(TMPDIR)/linux-$(VERSION)-build/VASSAL-$(VERSION): $(LIBDIR)/Vengine.jar
 	cp -a $(DOCDIR) $@/doc
 	cp -a CHANGES LICENSE README.md $@
 	cp -a $(LIBDIR) $@/lib
-	cp linux/dist/VASSAL.sh $@
-	cp linux/dist/org.vassalengine.vassal.desktop $@
-	cp linux/dist/org.vassalengine.vassal.metainfo.xml $@
-	cp linux/dist/org.vassalengone.vassal.mime.xml $@
-	cp linux/dist/vassal.6 $@
-	cp linux/dist/integration.sh $@
+	cp dist/linux/VASSAL.sh $@
+	cp dist/linux/org.vassalengine.vassal.desktop $@
+	cp dist/linux/org.vassalengine.vassal.metainfo.xml $@
+	cp dist/linux/org.vassalengone.vassal.mime.xml $@
+	cp dist/linux/vassal.6 $@
+	cp dist/linux/integration.sh $@
 	cp vassal-app/src/main/resources/icons/scalable/VASSAL.svg $@
 	find $@ -type f -exec chmod 644 \{\} \+
 	find $@ -type d -exec chmod 755 \{\} \+
