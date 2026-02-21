@@ -42,7 +42,7 @@ cp -a *  %{buildroot}%{_datadir}/%{name}/
 (cd %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes && cp ../../../../%{name}/VASSAL.svg %{app_name}.svg)
 (cd %{buildroot}%{_datadir}/icons/hicolor/scalable/apps && cp ../../../../%{name}/VASSAL.svg %{app_name}.svg)
 
-(cd %{buildroot} %{buildroot}%{_mandir}/man6 && cp ../../%{name}/%{name}.6 .)
+(cd %{buildroot}%{_mandir}/man6 && cp ../../%{name}/%{name}.6 .)
 (cd %{buildroot}%{_datadir}/applications && cp ../%{name}/%{app_name}.desktop)
 
 (cd %{buildroot}%{_datadir}/mime/packages/ && cp ../../%{name}/%{app_name}.mime.xml %{app_name}.xml)
