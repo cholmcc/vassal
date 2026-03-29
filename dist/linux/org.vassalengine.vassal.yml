@@ -1,0 +1,51 @@
+id: org.vassalengine.vassal
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk25
+command: vassal
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --share=network
+  - --filesystem=home
+  - --env=PATH=/app/jre/bin:/app/bin:/usr/bin
+
+modules:
+  - name: openjdk
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/openjdk25/install.sh
+
+  - name: vassal
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/openjdk25/bin
+      env:
+        MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+    build-commands:
+      - make jar SKIPS="-Dasciidoctor.skip=true -Dspotbugs.skip=true -Dlicense.skipDownloadLicenses -Dclirr.skip=true -Dmaven.javadoc.skip=true -Dpmd.skip=true -Dmaven.test.skip=true" MVN="mvn -Dmaven.repo.local=.m2/repository" MAVEN_VERSION=3.7.21 
+      - mv release-prepare/target/lib /app
+      - install -Dm644 vassal-app/src/main/resources/icons/scalable/VASSAL.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - install -Dm644 vassal-app/src/main/resources/icons/scalable/VASSAL.svg /app/share/icons/hicolor/scalable/mimetypes/${FLATPAK_ID}.svg
+      - install -Dm755 dist/linux/VASSAL.sh /app/VASSAL.sh
+      - install -Dm644 dist/linux/${FLATPAK_ID}.desktop /app/share/applications/${FLATPAK_ID}.desktop 
+      - install -Dm644 dist/linux/${FLATPAK_ID}.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 dist/linux/${FLATPAK_ID}.mime.xml /app/share/mime/packages/${FLATPAK_ID}.xml
+      - install -Dm644 dist/linux/vassal.6 /app/share/man/man6/vassal.6
+      - install -d -Dm755 /app/bin
+      - (cd /app/bin && ln -s ../VASSAL.sh vassal)
+    sources:
+      - type: git
+        url: https://github.com/cholmcc/vassal.git
+        commit: ffa18b1b85814626a81ae8e3ca580c01bc00c603
+        tag: 3.7.21
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/cholmcc/vassal/releases/latest
+          tag-query: .tag_name
+      - maven-dependencies.yml
