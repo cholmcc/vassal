@@ -219,8 +219,9 @@ jobs:
         run: |
           mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS/noarch,SOURCES,SRPMS}
           sha=$(curl ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} 2>/dev/null | jq '.assets.[] | .digest+"  "+.name | ltrimstr("sha256:") ' | grep -- -linux | tr -d '"' | cut -f1 -d' ')
+          rpmvers=$(echo "${{ github.ref_name }}" | tr '-' '~')
           wget "https://raw.githubusercontent.com/${{ github.repository }}/refs/tags/${{ github.ref_name }}/dist/linux/vassal.spec.in" -O vassal.spec.in
-          sed -e "s/@RELEASE@/${{ github.ref_name }}/" -e "s/@SHA256SUM@/${sha}/" -e "s,@REPOSITORY@,${{ github.repository }}," < vassal.spec.in > vassal.spec
+          sed -e "s/@RELEASE@/${rpmvers}/" -e "s/@SHA256SUM@/${sha}/" -e "s,@REPOSITORY@,${{ github.repository }}," < vassal.spec.in > vassal.spec
           rpmbuild --define "_topdir `pwd`/rpmbuild"  -ba vassal.spec
       - name: Move artefacts
         run: |
